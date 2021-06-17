@@ -136,6 +136,25 @@ Detalles 1 {data-navmenu="Info"}
 ### Chart D
   
 ```{r}
+fechas <- data.frame(as.numeric(cap200$IH203_MES), as.vector(cap200$IH208_GENERICO))
+colnames(fechas) <- c("Mes", "Delito_generico")
+fechas <- subset(fechas, Mes != 99)
+
+aux_fechas <- data.frame(table(fechas$Mes),X = 1); 
+colnames(aux_fechas) <- c("MES", "FREQ","X")
+  
+# GRAFICO 1
+# Denuncias reportadas en el año 2017
+
+ggplot(aux_fechas, aes(x=MES,y = FREQ,group = X))+
+  geom_line(colour="red")+
+  geom_point( size=2, shape=21, fill="white", colour="red")+
+  geom_label(aes(label=FREQ),size = 3, fill = "white")+
+  xlab("Mes") +   
+  ylab("Cantidad de denuncias reportadas") + 
+  ggtitle("DENUNCIAS REPORTADAS EN EL AÑO 2017")+
+  scale_x_discrete(labels = c("ENERO", "FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SETIEMBRE",
+                              "OCTUBRE","NOVIEMBRE","DICIEMBRE"))
 
 ```
 
